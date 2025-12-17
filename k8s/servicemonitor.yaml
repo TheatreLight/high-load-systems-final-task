@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: hls-iot-service-monitor
+  namespace: hls-iot
+  labels:
+    app: hls-iot-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: hls-iot-service
+  namespaceSelector:
+    matchNames:
+      - hls-iot
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s

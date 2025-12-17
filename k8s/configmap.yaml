@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hls-iot-config
+  namespace: hls-iot
+  labels:
+    app: hls-iot-service
+data:
+  PORT: "8080"
+  REDIS_HOST: "redis-master"
+  REDIS_PORT: "6379"
+  WINDOW_SIZE: "50"
+  ZSCORE_THRESHOLD: "2.0"
+  LOG_LEVEL: "info"

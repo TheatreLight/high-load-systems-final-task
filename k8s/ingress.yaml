@@ -1,0 +1,55 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hls-iot-ingress
+  namespace: hls-iot
+  labels:
+    app: hls-iot-service
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hls-iot.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hls-iot-service
+            port:
+              number: 80
+  - http:
+      paths:
+      - path: /ingest
+        pathType: Prefix
+        backend:
+          service:
+            name: hls-iot-service
+            port:
+              number: 80
+      - path: /analyze
+        pathType: Prefix
+        backend:
+          service:
+            name: hls-iot-service
+            port:
+              number: 80
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: hls-iot-service
+            port:
+              number: 80
+      - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: hls-iot-service
+            port:
+              number: 80
